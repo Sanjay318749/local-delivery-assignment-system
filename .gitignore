@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Environment variables and credentials
+.env
+.env.*
+!.env.example
+.aws/
+*.pem
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+override.tf
+override.tf.json
+
+# macOS
+.DS_Store
+
+# IDE
+.vscode/
+.idea/
