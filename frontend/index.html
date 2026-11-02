@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#182525">
+	<title>Fieldnote Dispatch</title>
+	<link rel="stylesheet" href="/style.css">
+	<script src="/script.js" defer></script>
+</head>
+<body>
+	<header class="topbar">
+		<a class="brand" href="/" aria-label="Fieldnote Dispatch home">
+			<span class="brand-mark" aria-hidden="true">F</span>
+			<span>FIELDNOTE <small>DISPATCH</small></span>
+		</a>
+		<div class="topbar-actions">
+			<span class="connection"><span class="connection-dot"></span><span id="connection-label">Connecting</span></span>
+			<button class="button button-dark" id="auth-button" type="button">Sign in</button>
+		</div>
+	</header>
+
+	<main class="workspace">
+		<section class="page-heading">
+			<div>
+				<p class="eyebrow">OPERATIONS / TODAY</p>
+				<h1>Dispatch board</h1>
+				<p class="heading-copy">Keep every delivery moving and every driver in view.</p>
+			</div>
+			<button class="button button-light" id="refresh-button" type="button" aria-label="Refresh deliveries">
+				<span aria-hidden="true">↻</span> Refresh
+			</button>
+		</section>
+
+		<section class="metrics" aria-label="Delivery summary">
+			<div class="metric metric-ink"><span>All deliveries</span><strong id="metric-total">—</strong><small>Current board</small></div>
+			<div class="metric metric-lime"><span>Awaiting driver</span><strong id="metric-pending">—</strong><small>Ready to assign</small></div>
+			<div class="metric metric-paper"><span>In motion</span><strong id="metric-active">—</strong><small>Picked up or in transit</small></div>
+			<div class="metric metric-coral"><span>Completed</span><strong id="metric-complete">—</strong><small>Delivered today</small></div>
+		</section>
+
+		<section class="board-layout">
+			<section class="deliveries-panel" aria-labelledby="deliveries-title">
+				<div class="section-heading">
+					<div>
+						<p class="eyebrow">LIVE QUEUE</p>
+						<h2 id="deliveries-title">Deliveries</h2>
+					</div>
+					<label class="filter-label" for="status-filter">Show
+						<select id="status-filter">
+							<option value="ALL">All statuses</option>
+							<option value="PENDING">Pending</option>
+							<option value="ASSIGNED">Assigned</option>
+							<option value="PICKED_UP">Picked up</option>
+							<option value="IN_TRANSIT">In transit</option>
+							<option value="DELIVERED">Delivered</option>
+						</select>
+					</label>
+				</div>
+				<div id="notice" class="notice" role="status" aria-live="polite" hidden></div>
+				<div class="table-wrap">
+					<table>
+						<thead>
+							<tr><th>Job</th><th>Route</th><th>Driver</th><th>Status</th><th>Next step</th></tr>
+						</thead>
+						<tbody id="delivery-rows">
+							<tr><td class="empty-state" colspan="5">Sign in to load deliveries.</td></tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="list-footer">
+					<span id="result-count">No deliveries loaded</span>
+					<button class="button button-small" id="load-more-button" type="button" hidden>Load more</button>
+				</div>
+			</section>
+
+			<aside class="actions-panel" aria-label="Dispatch actions">
+				<div class="action-tabs" role="tablist" aria-label="Create records">
+					<button class="action-tab is-active" id="delivery-tab" type="button" role="tab" aria-selected="true" aria-controls="delivery-form-panel">New delivery</button>
+					<button class="action-tab" id="driver-tab" type="button" role="tab" aria-selected="false" aria-controls="driver-form-panel">New driver</button>
+				</div>
+
+				<section class="form-panel" id="delivery-form-panel" role="tabpanel" aria-labelledby="delivery-tab">
+					<p class="eyebrow">INCOMING ORDER</p>
+					<h2>Create a delivery</h2>
+					<form id="delivery-form">
+						<label>Customer name<input name="customer_name" autocomplete="name" required maxlength="120"></label>
+						<label>Pickup address<input name="pickup_address" required maxlength="240"></label>
+						<label>Delivery address<input name="delivery_address" required maxlength="240"></label>
+						<button class="button button-lime form-submit" type="submit">Add to queue <span aria-hidden="true">→</span></button>
+					</form>
+				</section>
+
+				<section class="form-panel" id="driver-form-panel" role="tabpanel" aria-labelledby="driver-tab" hidden>
+					<p class="eyebrow">DRIVER ROSTER</p>
+					<h2>Register a driver</h2>
+					<form id="driver-form">
+						<label>Driver name<input name="name" autocomplete="name" required maxlength="120"></label>
+						<label>Phone number<input name="phone" type="tel" autocomplete="tel" required maxlength="32"></label>
+						<button class="button button-lime form-submit" type="submit">Add driver <span aria-hidden="true">→</span></button>
+					</form>
+				</section>
+
+				<div class="dispatch-note">
+					<span class="note-mark" aria-hidden="true">↗</span>
+					<p>Assignments reserve a driver immediately. Completing delivery returns them to the available roster.</p>
+				</div>
+			</aside>
+		</section>
+		<footer class="page-footer"><span>FIELDNOTE DISPATCH</span><span id="last-updated">Waiting for connection</span></footer>
+	</main>
+</body>
+</html>

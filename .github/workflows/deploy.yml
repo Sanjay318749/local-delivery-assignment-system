@@ -1,0 +1,87 @@
+name: Validate and deploy
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Target AWS environment
+        required: true
+        type: choice
+        options:
+          - dev
+          - prod
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+          cache: pip
+          cache-dependency-path: requirements.txt
+      - run: python -m pip install -r requirements.txt
+      - run: PYTHONPATH=. python -m pytest -q
+
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.10.5
+      - run: terraform fmt -check -recursive infrastructure
+      - run: terraform -chdir=infrastructure init -backend=false -input=false -lockfile=readonly
+      - run: terraform -chdir=infrastructure validate
+      - run: terraform -chdir=infrastructure/bootstrap init -backend=false -input=false -lockfile=readonly
+      - run: terraform -chdir=infrastructure/bootstrap validate
+
+  deploy:
+    if: github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main'
+    needs: validate
+    runs-on: ubuntu-latest
+    environment: aws-deploy
+    permissions:
+      contents: read
+      id-token: write
+    env:
+      AWS_REGION: ${{ vars.AWS_REGION }}
+      AWS_ROLE_ARN: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+      TF_STATE_BUCKET: ${{ vars.TF_STATE_BUCKET }}
+      TF_VAR_aws_region: ${{ vars.AWS_REGION }}
+      TF_VAR_project_name: local-delivery
+      TF_VAR_environment: ${{ inputs.environment }}
+      TF_VAR_cognito_domain_prefix: ${{ vars.COGNITO_DOMAIN_PREFIX }}-${{ inputs.environment }}
+      TF_VAR_enable_deletion_protection: ${{ inputs.environment == 'prod' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: 1.10.5
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Check deployment configuration
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -n "$AWS_ROLE_ARN"
+          test -n "$TF_STATE_BUCKET"
+          test -n "$AWS_REGION"
+          test -n "$TF_VAR_cognito_domain_prefix"
+
+      - name: Initialize Terraform state
+        run: >-
+          terraform -chdir=infrastructure init -input=false
+          -backend-config="bucket=${TF_STATE_BUCKET}"
+          -backend-config="key=local-delivery/${TF_VAR_environment}/terraform.tfstate"
+          -backend-config="region=${AWS_REGION}"
+          -backend-config="use_lockfile=true"
+
+      - name: Apply infrastructure and publish frontend
+        run: terraform -chdir=infrastructure apply -input=false -auto-approve
