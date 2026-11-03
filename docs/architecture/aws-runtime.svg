@@ -1,0 +1,130 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 940" role="img" aria-labelledby="title desc">
+  <title id="title">Local Delivery Assignment System AWS Architecture</title>
+  <desc id="desc">AWS architecture showing the browser, Cognito, API Gateway, Lambda handlers, private S3 assets, DynamoDB tables, and CloudWatch logs.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#667b91"/></marker>
+    <marker id="arrow-orange" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#e28a25"/></marker>
+    <marker id="arrow-dash" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ad5550"/></marker>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#25364a}.small{font-size:14px;fill:#66768a}.label{font-size:15px;fill:#42556b}.title{font-size:28px;font-weight:700}.subtitle{font-size:17px;fill:#68788b}.group{fill:#fff;stroke:#9aabba;stroke-width:2}.group-title{font-size:17px;font-weight:700;letter-spacing:.5px}.node{fill:#fff;stroke:#bcc8d3;stroke-width:1.5}.node-title{font-size:17px;font-weight:700}.node-sub{font-size:13px;fill:#69798b}.line{fill:none;stroke:#667b91;stroke-width:3;marker-end:url(#arrow)}.orange-line{fill:none;stroke:#e28a25;stroke-width:3;marker-end:url(#arrow-orange)}.permission{fill:none;stroke:#ad5550;stroke-width:2.5;stroke-dasharray:8 7;marker-end:url(#arrow-dash)}.pill{fill:#fff;stroke:#dbe2e8;stroke-width:1}
+    </style>
+  </defs>
+  <rect width="1600" height="940" fill="#edf2f6"/>
+  <rect x="34" y="34" width="1532" height="872" rx="18" fill="#fff" stroke="#8e9eac" stroke-width="2"/>
+  <rect x="54" y="54" width="38" height="30" rx="5" fill="#ed8b23"/>
+  <text x="73" y="75" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">AWS</text>
+  <text x="108" y="76" font-size="18" font-weight="700">AWS CLOUD</text>
+  <text x="1528" y="76" text-anchor="end" class="title">Local Delivery Assignment System</text>
+  <text x="1528" y="103" text-anchor="end" class="subtitle">Application Architecture - ap-southeast-1</text>
+
+  <rect x="55" y="350" width="230" height="196" rx="13" fill="#f7fafc" stroke="#90a1b1" stroke-width="2"/>
+  <text x="75" y="380" class="group-title">CLIENT</text>
+  <circle cx="170" cy="430" r="34" fill="#e8eef4" stroke="#8799aa" stroke-width="2"/>
+  <circle cx="170" cy="420" r="9" fill="#61768b"/>
+  <path d="M150 450 Q170 429 190 450" fill="none" stroke="#61768b" stroke-width="7" stroke-linecap="round"/>
+  <text x="170" y="490" text-anchor="middle" class="node-title">Web Browser</text>
+  <text x="170" y="514" text-anchor="middle" class="node-sub">Dispatch dashboard</text>
+
+  <rect x="310" y="135" width="1228" height="716" rx="20" fill="#fbfcfd" stroke="#6e8799" stroke-width="2.5"/>
+  <rect x="330" y="151" width="114" height="28" rx="5" fill="#e9f0f5"/>
+  <text x="387" y="171" text-anchor="middle" class="group-title">AWS REGION</text>
+
+  <rect x="360" y="210" width="300" height="150" rx="12" class="group"/>
+  <text x="380" y="240" class="group-title">IDENTITY</text>
+  <rect x="402" y="262" width="216" height="70" rx="10" fill="#fff8ef" stroke="#e7a24f" stroke-width="2"/>
+  <rect x="420" y="278" width="38" height="38" rx="8" fill="#d77b19"/>
+  <text x="439" y="303" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">C</text>
+  <text x="472" y="290" class="node-title">Amazon Cognito</text>
+  <text x="472" y="312" class="node-sub">User pool and hosted login</text>
+
+  <rect x="690" y="210" width="310" height="150" rx="12" class="group"/>
+  <text x="710" y="240" class="group-title">PUBLIC WEB ASSETS</text>
+  <rect x="735" y="262" width="220" height="70" rx="10" fill="#f1f8f2" stroke="#7ca986" stroke-width="2"/>
+  <rect x="752" y="278" width="38" height="38" rx="8" fill="#39834c"/>
+  <text x="771" y="303" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">S3</text>
+  <text x="806" y="290" class="node-title">Amazon S3</text>
+  <text x="806" y="312" class="node-sub">Private frontend files</text>
+
+  <rect x="1030" y="210" width="450" height="150" rx="12" class="group"/>
+  <text x="1050" y="240" class="group-title">DATA STORES</text>
+  <rect x="1065" y="262" width="180" height="70" rx="10" fill="#f4f0fb" stroke="#9982bd" stroke-width="2"/>
+  <rect x="1082" y="278" width="38" height="38" rx="8" fill="#7654a6"/>
+  <text x="1101" y="303" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">DB</text>
+  <text x="1135" y="290" class="node-title">Jobs</text>
+  <text x="1135" y="312" class="node-sub">DynamoDB table</text>
+  <rect x="1270" y="262" width="185" height="70" rx="10" fill="#f4f0fb" stroke="#9982bd" stroke-width="2"/>
+  <rect x="1287" y="278" width="38" height="38" rx="8" fill="#7654a6"/>
+  <text x="1306" y="303" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">DB</text>
+  <text x="1340" y="290" class="node-title">Drivers</text>
+  <text x="1340" y="312" class="node-sub">DynamoDB table</text>
+
+  <rect x="360" y="430" width="300" height="160" rx="12" class="group"/>
+  <text x="380" y="460" class="group-title">INGRESS</text>
+  <rect x="402" y="482" width="216" height="76" rx="10" fill="#fff8ef" stroke="#e7a24f" stroke-width="2"/>
+  <rect x="420" y="501" width="38" height="38" rx="8" fill="#d77b19"/>
+  <text x="439" y="526" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">API</text>
+  <text x="472" y="510" class="node-title">API Gateway</text>
+  <text x="472" y="533" class="node-sub">HTTPS HTTP API</text>
+  <text x="472" y="550" class="node-sub">JWT authorizer for app routes</text>
+
+  <rect x="690" y="405" width="790" height="310" rx="12" class="group"/>
+  <text x="710" y="435" class="group-title">COMPUTE - AWS LAMBDA</text>
+  <rect x="725" y="458" width="205" height="82" rx="9" fill="#fff8ef" stroke="#e7a24f" stroke-width="1.7"/>
+  <rect x="742" y="480" width="36" height="36" rx="8" fill="#d77b19"/>
+  <text x="760" y="504" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">L</text>
+  <text x="792" y="486" class="node-title">serve_frontend</text>
+  <text x="792" y="510" class="node-sub">Reads allowlisted S3 assets</text>
+  <rect x="955" y="458" width="225" height="82" rx="9" fill="#fff8ef" stroke="#e7a24f" stroke-width="1.7"/>
+  <rect x="972" y="480" width="36" height="36" rx="8" fill="#d77b19"/>
+  <text x="990" y="504" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">L</text>
+  <text x="1022" y="486" class="node-title">register_driver</text>
+  <text x="1022" y="510" class="node-sub">Creates available driver</text>
+  <rect x="1205" y="458" width="235" height="82" rx="9" fill="#fff8ef" stroke="#e7a24f" stroke-width="1.7"/>
+  <rect x="1222" y="480" width="36" height="36" rx="8" fill="#d77b19"/>
+  <text x="1240" y="504" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">L</text>
+  <text x="1272" y="486" class="node-title">create_delivery</text>
+  <text x="1272" y="510" class="node-sub">Creates pending job</text>
+  <rect x="725" y="575" width="205" height="82" rx="9" fill="#fff8ef" stroke="#e7a24f" stroke-width="1.7"/>
+  <rect x="742" y="597" width="36" height="36" rx="8" fill="#d77b19"/>
+  <text x="760" y="621" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">L</text>
+  <text x="792" y="603" class="node-title">assign_driver</text>
+  <text x="792" y="627" class="node-sub">Atomic assignment</text>
+  <rect x="955" y="575" width="225" height="82" rx="9" fill="#fff8ef" stroke="#e7a24f" stroke-width="1.7"/>
+  <rect x="972" y="597" width="36" height="36" rx="8" fill="#d77b19"/>
+  <text x="990" y="621" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">L</text>
+  <text x="1022" y="603" class="node-title">get_deliveries</text>
+  <text x="1022" y="627" class="node-sub">Paginated list</text>
+  <rect x="1205" y="575" width="235" height="82" rx="9" fill="#fff8ef" stroke="#e7a24f" stroke-width="1.7"/>
+  <rect x="1222" y="597" width="36" height="36" rx="8" fill="#d77b19"/>
+  <text x="1240" y="621" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">L</text>
+  <text x="1272" y="603" class="node-title">update_status</text>
+  <text x="1272" y="627" class="node-sub">Releases driver on done</text>
+
+  <rect x="360" y="660" width="300" height="112" rx="12" class="group"/>
+  <text x="380" y="690" class="group-title">OBSERVABILITY</text>
+  <rect x="402" y="708" width="216" height="45" rx="8" fill="#eef4fa" stroke="#7e9ab4" stroke-width="1.6"/>
+  <text x="510" y="737" text-anchor="middle" class="node-title">CloudWatch Logs</text>
+
+  <rect x="690" y="755" width="790" height="58" rx="10" fill="#fff9e9" stroke="#d7b75a" stroke-width="1.6"/>
+  <text x="712" y="790" class="node-title">IAM Lambda role</text>
+  <text x="885" y="790" class="node-sub">Scoped DynamoDB, S3 read, and CloudWatch log permissions</text>
+
+  <path d="M285 445 H345 V520 H400" class="line"/>
+  <rect x="287" y="461" width="100" height="25" rx="12" class="pill"/><text x="337" y="478" text-anchor="middle" class="small">HTTPS</text>
+  <path d="M285 390 H315 V295 H400" class="orange-line"/>
+  <rect x="292" y="326" width="104" height="25" rx="12" class="pill"/><text x="344" y="343" text-anchor="middle" class="small">sign in</text>
+  <path d="M510 332 V482" class="orange-line"/>
+  <rect x="520" y="382" width="104" height="25" rx="12" class="pill"/><text x="572" y="399" text-anchor="middle" class="small">JWT token</text>
+  <path d="M618 520 H690" class="line"/>
+  <rect x="620" y="483" width="85" height="25" rx="12" class="pill"/><text x="662" y="500" text-anchor="middle" class="small">API routes</text>
+  <path d="M827 458 V380 H845 V332" class="orange-line"/>
+  <path d="M1100 405 V380 H1155 V332" class="line"/>
+  <path d="M1400 405 V380 H1360 V332" class="line"/>
+  <rect x="1087" y="367" width="204" height="24" rx="12" class="pill"/><text x="1189" y="384" text-anchor="middle" class="small">DynamoDB reads and writes</text>
+  <path d="M510 558 V660" class="line"/>
+  <path d="M690 730 H618" class="line"/>
+  <path d="M900 755 V715" class="permission"/>
+  <path d="M1100 755 V715" class="permission"/>
+  <path d="M1320 755 V715" class="permission"/>
+  <text x="80" y="845" class="small">Solid arrows show requests and data flow. Dashed red arrows show runtime permissions.</text>
+</svg>

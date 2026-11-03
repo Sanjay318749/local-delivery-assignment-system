@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 940" role="img" aria-labelledby="title desc">
+  <title id="title">Local Delivery Assignment System DevOps Architecture</title>
+  <desc id="desc">GitHub source control triggers GitHub Actions validation. A protected manual deployment uses GitHub OIDC to assume an IAM role, then Terraform updates AWS and stores remote state in S3.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#667b91"/></marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#4c8b58"/></marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M 0 0 L 10 5 L 0 10 z" fill="#ad5550"/></marker>
+    <style>
+      text{font-family:Arial,Helvetica,sans-serif;fill:#25364a}.title{font-size:29px;font-weight:700}.subtitle{font-size:17px;fill:#68788b}.section{font-size:18px;font-weight:700;letter-spacing:.5px}.node-title{font-size:18px;font-weight:700}.node-sub{font-size:14px;fill:#69798b}.small{font-size:14px;fill:#52667b}.frame{fill:#fff;stroke:#8e9eac;stroke-width:2}.group-source{fill:#f8fafc;stroke:#8293a4;stroke-width:2}.group-cicd{fill:#f6f9fc;stroke:#6488a9;stroke-width:2}.group-aws{fill:#f8fbf8;stroke:#75977a;stroke-width:2}.group-security{fill:#fff9e9;stroke:#d6b757;stroke-width:2}.node{fill:#fff;stroke:#becbd5;stroke-width:1.6}.source-icon{fill:#273b50}.actions-icon{fill:#436da3}.aws-icon{fill:#ed8b23}.s3-icon{fill:#36824c}.db-icon{fill:#7253a3}.line{fill:none;stroke:#667b91;stroke-width:3;marker-end:url(#arrow)}.green-line{fill:none;stroke:#4c8b58;stroke-width:3;marker-end:url(#arrow-green)}.iam-line{fill:none;stroke:#ad5550;stroke-width:2.6;stroke-dasharray:8 7;marker-end:url(#arrow-red)}.pill{fill:#fff;stroke:#d7e0e7;stroke-width:1}.legend{font-size:13px;fill:#42556b}
+    </style>
+  </defs>
+  <rect width="1600" height="940" fill="#edf2f6"/>
+  <rect x="34" y="34" width="1532" height="872" rx="18" class="frame"/>
+  <rect x="55" y="54" width="38" height="30" rx="5" class="aws-icon"/>
+  <text x="74" y="75" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">AWS</text>
+  <text x="108" y="76" font-size="18" font-weight="700">AWS CLOUD</text>
+  <text x="1528" y="76" text-anchor="end" class="title">Local Delivery Assignment System</text>
+  <text x="1528" y="103" text-anchor="end" class="subtitle">CI/CD Pipeline Architecture</text>
+
+  <rect x="65" y="206" width="405" height="394" rx="16" class="group-source"/>
+  <text x="88" y="241" class="section">SOURCE CONTROL</text>
+  <circle cx="145" cy="393" r="37" fill="#eaf0f5" stroke="#71879b" stroke-width="2"/>
+  <circle cx="145" cy="381" r="10" fill="#71879b"/>
+  <path d="M124 414 Q145 391 166 414" fill="none" stroke="#71879b" stroke-width="7" stroke-linecap="round"/>
+  <text x="145" y="453" text-anchor="middle" class="node-title">Developer</text>
+  <text x="145" y="475" text-anchor="middle" class="node-sub">Git commit and push</text>
+  <rect x="250" y="330" width="185" height="152" rx="14" class="node"/>
+  <circle cx="342" cy="375" r="27" class="source-icon"/>
+  <text x="342" y="381" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">GH</text>
+  <text x="342" y="430" text-anchor="middle" class="node-title">GitHub Repo</text>
+  <text x="342" y="454" text-anchor="middle" class="node-sub">main branch</text>
+
+  <rect x="510" y="206" width="510" height="394" rx="16" class="group-cicd"/>
+  <text x="533" y="241" class="section">CI / CD - GITHUB ACTIONS</text>
+  <rect x="555" y="286" width="420" height="94" rx="12" class="node"/>
+  <rect x="575" y="309" width="48" height="48" rx="10" class="actions-icon"/>
+  <text x="599" y="340" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">CI</text>
+  <text x="645" y="318" class="node-title">Validate workflow</text>
+  <text x="645" y="343" class="node-sub">pytest, Terraform fmt, init, validate</text>
+  <text x="645" y="363" class="node-sub">Runs on pull requests and main pushes</text>
+  <rect x="555" y="421" width="195" height="112" rx="12" class="node"/>
+  <rect x="573" y="444" width="43" height="43" rx="8" class="actions-icon"/>
+  <text x="594" y="472" text-anchor="middle" font-size="17" font-weight="700" fill="#fff">RUN</text>
+  <text x="628" y="451" class="node-title">Manual deploy</text>
+  <text x="628" y="478" class="node-sub">main only</text>
+  <text x="628" y="499" class="node-sub">dev or prod</text>
+  <rect x="780" y="421" width="195" height="112" rx="12" class="node"/>
+  <rect x="798" y="444" width="43" height="43" rx="8" class="actions-icon"/>
+  <text x="819" y="472" text-anchor="middle" font-size="18" font-weight="700" fill="#fff">TF</text>
+  <text x="853" y="451" class="node-title">Terraform apply</text>
+  <text x="853" y="478" class="node-sub">Only after approval</text>
+  <text x="853" y="499" class="node-sub">Short-lived credentials</text>
+
+  <rect x="1060" y="206" width="475" height="394" rx="16" class="group-aws"/>
+  <text x="1083" y="241" class="section">AWS RESOURCES</text>
+  <rect x="1090" y="286" width="185" height="112" rx="12" class="node"/>
+  <rect x="1110" y="307" width="43" height="43" rx="8" class="s3-icon"/>
+  <text x="1131" y="335" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">S3</text>
+  <text x="1165" y="315" class="node-title">State bucket</text>
+  <text x="1165" y="340" class="node-sub">Versioned and</text>
+  <text x="1165" y="360" class="node-sub">encrypted state</text>
+  <rect x="1300" y="286" width="205" height="112" rx="12" class="node"/>
+  <rect x="1320" y="307" width="43" height="43" rx="8" class="aws-icon"/>
+  <text x="1341" y="335" text-anchor="middle" font-size="15" font-weight="700" fill="#fff">APP</text>
+  <text x="1375" y="315" class="node-title">App stack</text>
+  <text x="1375" y="340" class="node-sub">Cognito, API Gateway</text>
+  <text x="1375" y="360" class="node-sub">Lambda, DynamoDB, S3</text>
+  <rect x="1180" y="449" width="235" height="83" rx="12" fill="#f1f8f2" stroke="#82a58a" stroke-width="1.7"/>
+  <circle cx="1220" cy="490" r="20" fill="#39834c"/>
+  <text x="1220" y="495" text-anchor="middle" font-size="13" font-weight="700" fill="#fff">URL</text>
+  <text x="1253" y="482" class="node-title">Web application</text>
+  <text x="1253" y="507" class="node-sub">API Gateway HTTPS endpoint</text>
+
+  <rect x="510" y="650" width="510" height="188" rx="16" class="group-security"/>
+  <text x="533" y="684" class="section">SECURITY AND DEPLOYMENT TRUST</text>
+  <rect x="555" y="713" width="190" height="88" rx="12" fill="#fff" stroke="#d8c478" stroke-width="1.6"/>
+  <rect x="574" y="733" width="42" height="42" rx="8" fill="#b45b50"/>
+  <text x="595" y="760" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">OIDC</text>
+  <text x="628" y="740" class="node-title">GitHub OIDC</text>
+  <text x="628" y="764" class="node-sub">Repository and</text>
+  <text x="628" y="783" class="node-sub">environment trust</text>
+  <rect x="780" y="713" width="195" height="88" rx="12" fill="#fff" stroke="#d8c478" stroke-width="1.6"/>
+  <rect x="799" y="733" width="42" height="42" rx="8" fill="#b45b50"/>
+  <text x="820" y="760" text-anchor="middle" font-size="14" font-weight="700" fill="#fff">IAM</text>
+  <text x="853" y="740" class="node-title">Deploy role</text>
+  <text x="853" y="764" class="node-sub">Scoped AWS access</text>
+  <text x="853" y="783" class="node-sub">No stored AWS keys</text>
+
+  <rect x="65" y="650" width="405" height="188" rx="16" fill="#fff" stroke="#c4d0d9" stroke-width="1.6"/>
+  <text x="88" y="684" class="section">CONNECTION LEGEND</text>
+  <path d="M95 724 H185" class="line"/>
+  <text x="205" y="729" class="small">Build, deploy, or data flow</text>
+  <path d="M95 768 H185" class="iam-line"/>
+  <text x="205" y="773" class="small">OIDC trust or IAM permission</text>
+  <text x="88" y="812" class="node-sub">Solid arrows show sequence. Dashed red shows trust.</text>
+
+  <path d="M182 406 H248" class="line"/>
+  <rect x="174" y="365" width="104" height="25" rx="12" class="pill"/>
+  <text x="226" y="382" text-anchor="middle" class="small">push code</text>
+  <path d="M435 406 H490 V333 H553" class="line"/>
+  <rect x="446" y="365" width="116" height="25" rx="12" class="pill"/>
+  <text x="504" y="382" text-anchor="middle" class="small">push or PR</text>
+  <path d="M765 380 V414 H652 V421" class="line"/>
+  <rect x="678" y="386" width="117" height="25" rx="12" class="pill"/>
+  <text x="736" y="403" text-anchor="middle" class="small">checks pass</text>
+  <path d="M652 533 V613 H650 V710" class="line"/>
+  <rect x="672" y="579" width="130" height="25" rx="12" class="pill"/>
+  <text x="737" y="596" text-anchor="middle" class="small">approval and OIDC</text>
+  <path d="M750 500 H765 V550 H850 V533" class="line"/>
+  <rect x="771" y="553" width="130" height="23" rx="11" class="pill"/>
+  <text x="836" y="569" text-anchor="middle" class="small">start deploy</text>
+  <path d="M745 757 H777" class="iam-line"/>
+  <rect x="648" y="806" width="145" height="23" rx="11" class="pill"/>
+  <text x="720" y="822" text-anchor="middle" class="small">OIDC role assumption</text>
+  <path d="M877 713 V620 H925 V533" class="iam-line"/>
+  <path d="M975 477 H1035 V342 H1087" class="green-line"/>
+  <rect x="982" y="421" width="126" height="25" rx="12" class="pill"/>
+  <text x="1045" y="438" text-anchor="middle" class="small">save state</text>
+  <path d="M975 460 H1045 V270 H1402 V284" class="green-line"/>
+  <rect x="1090" y="257" width="155" height="25" rx="12" class="pill"/>
+  <text x="1167" y="274" text-anchor="middle" class="small">apply AWS resources</text>
+  <path d="M1297 398 V449" class="green-line"/>
+  <text x="80" y="877" class="small">Deployment runs only from main after validation and protected environment approval.</text>
+</svg>

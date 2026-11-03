@@ -2,6 +2,8 @@
 
 This document shows the deployed AWS services, how application components communicate, and how GitHub Actions and Terraform validate and deploy the project.
 
+The visual diagrams, styled after the supplied reference, are available as [AWS runtime](../../../../../docs/architecture/aws-runtime.svg) and [DevOps pipeline](../../../../../docs/architecture/devops-pipeline.svg) SVGs.
+
 ## Application Architecture
 
 <!-- mermaid-checked: no \n, no em-dash/en-dash, no {} in labels, subgraphs are id["label"], arrows are -->|"label"|, all subgraphs closed by end, ids unique -->

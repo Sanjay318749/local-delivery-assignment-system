@@ -5,6 +5,17 @@ An AWS-native delivery operations app deployed with Terraform and GitHub Actions
 ## Architecture
 
 - [AWS and DevOps architecture diagrams](.github/modernize/assessment/engines/facts/architecture-diagram.md)
+- [AWS runtime diagram](docs/architecture/aws-runtime.svg)
+- [DevOps pipeline diagram](docs/architecture/devops-pipeline.svg)
+
+### AWS Runtime
+
+![AWS runtime architecture](docs/architecture/aws-runtime.svg)
+
+### DevOps Pipeline
+
+![GitHub Actions and AWS deployment architecture](docs/architecture/devops-pipeline.svg)
+
 - Amazon Cognito provides email sign-in and JWTs.
 - Amazon API Gateway HTTP API protects the application routes with a Cognito JWT authorizer.
 - AWS Lambda handles driver registration, delivery creation, driver assignment, delivery listing, and status changes.
