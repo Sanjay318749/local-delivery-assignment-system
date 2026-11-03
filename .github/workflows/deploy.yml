@@ -34,9 +34,9 @@ jobs:
         with:
           terraform_version: 1.10.5
       - run: terraform fmt -check -recursive infrastructure
-      - run: terraform -chdir=infrastructure init -backend=false -input=false -lockfile=readonly
+      - run: terraform -chdir=infrastructure init -backend=false -input=false
       - run: terraform -chdir=infrastructure validate
-      - run: terraform -chdir=infrastructure/bootstrap init -backend=false -input=false -lockfile=readonly
+      - run: terraform -chdir=infrastructure/bootstrap init -backend=false -input=false
       - run: terraform -chdir=infrastructure/bootstrap validate
 
   deploy:
